@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Store Runs 29 Sep — Premium</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --bg-soft: #141414;
+      --panel: rgba(255,255,255,0.02);
+      --panel-strong: rgba(255,255,255,0.04);
+      --ink: #f4f3f0;
+      --muted: #a3a3a3;
+      --line: rgba(255,255,255,0.08);
+      --green: #1b7a66;
+      --green-soft: #2ea287;
+      --green-deep: #133e36;
+      --green-text: #78d9bf;
+      --shadow: rgba(0,0,0,0.18);
+      --font-body: "Barlow", "Segoe UI", Arial, sans-serif;
+      --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top, rgba(27,122,102,0.12), transparent 28%),
+        var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+    }
+    body { padding: 32px 16px 56px; }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green-text);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.95;
+    }
+
+    .sub {
+      max-width: 700px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .summary {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .metric {
+      min-width: 92px;
+      padding: 12px 14px 10px;
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+
+    .metric strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .metric.done strong { color: var(--green-text); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px 5px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.015);
+    }
+
+    .chip .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.2rem;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: var(--green);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+      gap: 18px;
+    }
+
+    .run {
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.0));
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--green);
+      border-radius: 14px;
+      padding: 16px 16px 12px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.1);
+    }
+
+    .run-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 12px;
+    }
+
+    .run-head h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 1.9rem;
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+    .area {
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-text);
+      background: rgba(120,217,191,0.08);
+      border: 1px solid rgba(120,217,191,0.2);
+      border-radius: 999px;
+      padding: 5px 8px;
+    }
+
+    .crew {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .prog {
+      font-family: var(--font-display);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .prog.full { color: var(--green-text); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .stats div {
+      background: rgba(255,255,255,0.015);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 9px 8px;
+    }
+
+    .stats b {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      line-height: 1;
+      margin-bottom: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stats span {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stats .tot {
+      background: rgba(27,122,102,0.14);
+      border-color: rgba(120,217,191,0.24);
+    }
+
+    ol { list-style: none; margin: 0; padding: 0; }
+
+    li {
+      display: grid;
+      grid-template-columns: 24px minmax(0,1fr) auto;
+      gap: 0 12px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .n {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--green-text);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      padding-top: 2px;
+    }
+
+    .store {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 9px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.4rem;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: var(--green);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .addr {
+      grid-column: 2;
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 0.9rem;
+      overflow-wrap: anywhere;
+    }
+
+    .note {
+      grid-column: 2;
+      margin-top: 6px;
+      color: var(--green-text);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .tick {
+      grid-column: 3;
+      grid-row: 1 / span 3;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-left: 10px;
+    }
+
+    .tick input {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--green-soft);
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .tick input:focus-visible {
+      outline: 2px solid var(--green-text);
+      outline-offset: 2px;
+    }
+
+    li.done {
+      background: rgba(27,122,102,0.06);
+      border-top-color: rgba(120,217,191,0.18);
+      border-radius: 10px;
+      margin: 0 -4px;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    li.done .tag { background: #fff; color: var(--green); }
+    li.done .n, li.done .tick, li.done .addr, li.done .note { color: #fff; }
+    li.done .tick input { accent-color: #fff; }
+
+    .usernote {
+      grid-column: 2;
+      margin-top: 8px;
+      padding: 9px 10px;
+      background: rgba(255,255,255,0.02);
+      border-left: 3px solid var(--green-text);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.88rem;
+    }
+
+    .more {
+      grid-column: 2;
+      justify-self: start;
+      margin-top: 8px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.01);
+      color: var(--green-text);
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .panel {
+      grid-column: 1 / -1;
+      margin-top: 12px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .panel label.lbl {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .panel textarea {
+      width: 100%;
+      min-height: 84px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      color: var(--ink);
+      padding: 10px 12px;
+      font: inherit;
+    }
+
+    .pbtns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .panel button, .btn {
+      background: var(--green);
+      color: #fff;
+      border: 0;
+      border-radius: 9px;
+      padding: 7px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .btn { position: relative; }
+    .btn input { display: none; }
+
+    .thumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .thumbs figure {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      margin: 0;
+    }
+
+    .thumbs img {
+      width: 92px;
+      height: 92px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .thumbs figure button {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 22px;
+      height: 22px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      background: var(--green-deep);
+      border: 1px solid rgba(120,217,191,0.24);
+      color: #fff;
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 0.85rem;
+      z-index: 30;
+    }
+
+    .prev-wrap {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .prev-wrap h2 {
+      margin: 0 0 16px;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+    footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    (function () {
+      var TODAY = [
+        { id: 't1', name: 'Team 1', area: 'West', crew: 'Installer: Vini', stats: ['6 hrs', '3 hrs 1 min', '9 hrs 1 min'], stops: [
+          ['tgg', 'Bayswater', '2/224-234 Canterbury Rd, Bayswater North VIC 3153'],
+          ['hn', 'Sunshine', '484 Ballarat Rd, Sunshine North VIC 3020'],
+          ['jb', 'Burnside (Caroline Springs)', 'Cnr Western Hwy & Chisholm Dr, Caroline Springs VIC 3023'],
+          ['jb', 'Hoppers Crossing', '283 Old Geelong Rd, Hoppers Crossing VIC 3029'],
+          ['tgg', 'Hoppers Crossing', '153-161 Old Geelong Rd, Hoppers Crossing VIC 3029'],
+          ['jb', 'Altona', 'Millers Road Homemaker Centre, C3/300-330 Millers Rd, Altona North VIC 3025']
+        ] },
+        { id: 't2', name: 'Team 2', area: 'Geelong', crew: 'Installer: Steven', stats: ['4 hrs', '2 hrs 9 min*', '6 hrs 9 min'], stops: [
+          ['hn', 'Geelong', '420 Princes Hwy, Corio VIC 3214'],
+          ['hn', 'Geelong South', 'Unit 1/40-50 Fyans St, South Geelong VIC 3220'],
+          ['tgg', 'Geelong', '419 Moorabool St, South Geelong VIC 3220'],
+          ['hn', 'Waurn Ponds', '33 Princes Hwy, Waurn Ponds VIC 3216']
+        ] },
+        { id: 't3', name: 'Team 3', area: 'North West', crew: 'Installer: Debora', stats: ['5 hrs', '1 hr 52 min', '6 hrs 52 min'], stops: [
+          ['jb', 'Essendon', 'DFO Essendon, 100 Bulla Rd, Essendon Fields VIC 3041'],
+          ['tgg', 'Essendon', 'Homemaker Hub, Essendon Fields VIC 3041'],
+          ['tgg', 'Sunbury', '1/85 Vineyard Rd, Sunbury VIC 3429'],
+          ['tgg', 'Taylors Lakes', '399 Melton Hwy, Taylors Lakes VIC 3038']
+        ] },
+        { id: 't4', name: 'Team 4', area: 'Frankston', crew: 'Installer: Leo Lisboa', stats: ['4 hrs', '1 hr 22 min', '5 hrs 22 min'], stops: [
+          ['jb', 'Bayside Frankston', 'Bayside Shopping Centre, 23 Beach St, Frankston VIC 3199', 'Store moved across from Run VIC 13'],
+          ['hn', 'Frankston', '87 Cranbourne Rd, Frankston VIC 3199'],
+          ['jb', 'Frankston', '32 McMahons Rd, Frankston VIC 3199'],
+          ['tgg', 'Frankston', 'Frankston Power Centre, 111 Cranbourne Rd, Frankston VIC 3199']
+        ] }
+      ];
+
+      var PREV = [
+        { id: 'p', name: 'Team 1', area: 'Mon 28 Sep', crew: 'Installer: Vini', stops: [
+          ['hn', 'Dandenong', '141-165 Frankston-Dandenong Rd, Dandenong South VIC 3175', "They didn't have SpeedStyle ProFlex in stock, the display was installed without it."],
+          ['tgg', 'Dandenong', 'Tenancy 1, 55-67 Frankston-Dandenong Rd, Dandenong VIC 3175', "They didn't have some of the products in stock. One of the stickers that cover the holes was missing."],
+          ['tgg', 'Springvale', 'Tenancy 1, 754-768 Princes Hwy, Springvale VIC 3171', 'The store didn\'t have all products in stock.'],
+          ['hn', 'Springvale', 'Unit 26, 917 Princes Hwy, Springvale VIC 3171', 'The manager required us to leave the Speed Style old model on the display because they didn\'t have Speed Style Pro Flex in stock.'],
+          ['jb', 'The Glen', 'The Glen Shopping Centre, 235 Springvale Rd, Glen Waverley VIC 3150', 'USB didn\'t work, left the old one in place and brought the new one back.'],
+          ['jb', 'Knox', 'Westfield Knox, 509 Burwood Hwy, Wantirna South VIC 3152', 'Manager complained that the last update was last month when I asked for the new products to set the display.'],
+          ['tgg', 'Bayswater', 'Unit 2, 224-234 Canterbury Rd, Bayswater VIC 3153']
+        ] }
+      ];
+
+      var TAGS = { hn: 'HN', jb: 'JB', tgg: 'TGG' };
+      var root = document.getElementById('root');
+      var stateKey = 'store-runs-premium-v1';
+      var state = loadState();
+      var timer = null;
+      var toastEl = null;
+      var openId = null;
+
+      try { openId = sessionStorage.getItem('openid') || null; } catch (e) {}
+
+      function loadState() {
+        try {
+          var raw = localStorage.getItem(stateKey);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object') {
+              parsed.done = Array.isArray(parsed.done) ? parsed.done : [];
+              parsed.notes = parsed.notes || {};
+              parsed.photos = parsed.photos || {};
+              return parsed;
+            }
+          }
+        } catch (e) {}
+        return { done: ['p-1', 'p-2', 'p-3', 'p-4', 'p-5', 'p-6', 't1-2'], notes: { 'p-7': 'Ran out of time to get to this store. ' }, photos: {} };
+      }
+
+      function esc(value) {
+        return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function okPhoto(u) { return typeof u === 'string' && u.indexOf('data:image/jpeg;base64,') === 0; }
+
+      function shrink(file) {
+        return new Promise(function (resolve, reject) {
+          var fr = new FileReader();
+          fr.onload = function () {
+            var img = new Image();
+            img.onload = function () {
+              var scale = Math.min(1, 1000 / Math.max(img.width, img.height));
+              var canvas = document.createElement('canvas');
+              canvas.width = Math.round(img.width * scale);
+              canvas.height = Math.round(img.height * scale);
+              var ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              resolve(canvas.toDataURL('image/jpeg', 0.72));
+            };
+            img.onerror = reject;
+            img.src = fr.result;
+          };
+          fr.onerror = reject;
+          fr.readAsDataURL(file);
+        });
+      }
+
+      function setOpen(id) {
+        openId = id;
+        try {
+          if (id) sessionStorage.setItem('openid', id);
+          else sessionStorage.removeItem('openid');
+        } catch (e) {}
+      }
+
+      function isDone(id) {
+        return state.done.indexOf(id) > -1;
+      }
+
+      function count(list) {
+        var done = 0;
+        var total = 0;
+        list.forEach(function (r) {
+          r.stops.forEach(function (s, i) {
+            total++;
+            if (isDone(r.id + '-' + (i + 1))) done++;
+          });
+        });
+        return [done, total];
+      }
+
+      function card(r) {
+        var doneCount = 0;
+        r.stops.forEach(function (s, i) {
+          if (isDone(r.id + '-' + (i + 1))) doneCount++;
+        });
+
+        var html = '<section class="run"><div class="run-head"><h2>' + r.name + '</h2><span class="area">' + r.area + '</span></div>';
+        html += '<div class="crew"><span>' + r.crew + ' &middot; ' + r.stops.length + ' stores</span><span class="prog' + (doneCount === r.stops.length ? ' full' : '') + '">' + doneCount + ' of ' + r.stops.length + ' done</span></div>';
+
+        if (r.stats) {
+          html += '<div class="stats"><div><b>' + r.stats[0] + '</b><span>Install</span></div><div><b>' + r.stats[1] + '</b><span>Driving</span></div><div class="tot"><b>' + r.stats[2] + '</b><span>Est. day</span></div></div>';
+        }
+
+        html += '<ol>';
+        r.stops.forEach(function (s, i) {
+          var id = r.id + '-' + (i + 1);
+          var on = isDone(id);
+          var nt = state.notes[id] || '';
+          var ph = (state.photos[id] || []).filter(okPhoto);
+          var isOpen = openId === id;
+
+          html += '<li class="' + (on ? 'done' : '') + '"><span class="n">' + (i + 1) + '</span><span class="store"><span class="tag">' + TAGS[s[0]] + '</span>' + s[1] + '</span>';
+          html += '<label class="tick"><input type="checkbox" data-id="' + id + '"' + (on ? ' checked' : '') + ' aria-label="Completed: ' + s[1] + '"><span>' + (on ? 'Done' : 'Tick') + '</span></label>';
+          html += '<span class="addr">' + s[2] + '</span>';
+          if (s[3]) html += '<span class="note">' + s[3] + '</span>';
+          if (nt && !isOpen) html += '<span class="usernote">' + esc(nt) + '</span>';
+
+          var label = isOpen ? 'Close' : ((nt || ph.length) ? ('Note' + (ph.length ? ' &middot; ' + ph.length + ' photo' + (ph.length > 1 ? 's' : '') : '')) : 'Add note or photo');
+          html += '<button type="button" class="more" data-open="' + id + '" aria-expanded="' + isOpen + '">' + label + '</button>';
+
+          if (isOpen) {
+            html += '<div class="panel"><label class="lbl" for="nt-' + id + '">Note for ' + esc(s[1]) + '</label><textarea id="nt-' + id + '" data-note="' + id + '" placeholder="Add a note about this store">' + esc(nt) + '</textarea>';
+            html += '<div class="pbtns"><button type="button" data-save="1">Save note</button><label class="btn">Add photos<input type="file" accept="image/*" multiple data-photo="' + id + '"></label></div>';
+            if (ph.length) {
+              html += '<div class="thumbs">' + ph.map(function (u, k) {
+                return '<figure><img src="' + u + '" alt="Photo ' + (k + 1) + '" data-view="' + id + ':' + k + '"><button type="button" data-del="' + id + ':' + k + '" aria-label="Remove photo ' + (k + 1) + '">&times;</button></figure>';
+              }).join('') + '</div>';
+            }
+            html += '</div>';
+          }
+
+          html += '</li>';
+        });
+
+        return html + '</ol></section>';
+      }
+
+      function render() {
+        var totals = count(TODAY);
+        var html = '<div class="wrap"><div class="topbar"><div><p class="eyebrow">Dabe Labour &middot; Installations &amp; Maintenance</p><h1>Store runs</h1><p class="sub">Install crews for the day. Stops are listed in order of attendance and can be marked done as work is completed.</p></div>';
+        html += '<div class="summary"><div class="metric"><strong>4</strong><span>Crews</span></div><div class="metric"><strong>' + totals[1] + '</strong><span>Stores</span></div><div class="metric done"><strong>' + totals[0] + '</strong><span>Done</span></div></div></div>';
+        html += '<p class="legend"><span class="chip"><span class="tag">HN</span> Harvey Norman</span><span class="chip"><span class="tag">JB</span> JB Hi-Fi</span><span class="chip"><span class="tag">TGG</span> The Good Guys</span></p>';
+        html += '<div class="grid">' + TODAY.map(card).join('') + '</div>';
+        html += '<div class="prev-wrap"><p class="eyebrow">Previous run</p><h2>Monday 28 September</h2><div class="grid">' + PREV.map(card).join('') + '</div></div>';
+        html += '<footer>Driving is from the Cranbourne West warehouse through each stop and back to the finish point. *Team 2 driving is to the last Geelong stop only. Order of stops may shift on the day depending on store access and traffic.</footer></div>';
+        root.innerHTML = html;
+      }
+
+      function toast(msg) {
+        if (toastEl) { toastEl.remove(); }
+        toastEl = document.createElement('div');
+        toastEl.className = 'toast';
+        toastEl.textContent = msg;
+        document.body.appendChild(toastEl);
+        setTimeout(function () {
+          if (toastEl) {
+            toastEl.remove();
+            toastEl = null;
+          }
+        }, 3000);
+      }
+
+      function save() {
+        try {
+          localStorage.setItem(stateKey, JSON.stringify(state));
+        } catch (e) {
+          toast('Could not save locally in this browser.');
+        }
+      }
+
+      document.addEventListener('change', function (ev) {
+        var el = ev.target;
+        if (!el || !el.getAttribute || !el.getAttribute('data-id')) return;
+        var id = el.getAttribute('data-id');
+        var idx = state.done.indexOf(id);
+        if (el.checked && idx < 0) state.done.push(id);
+        if (!el.checked && idx > -1) state.done.splice(idx, 1);
+        render();
+        clearTimeout(timer);
+        timer = setTimeout(save, 700);
+      });
+
+      document.addEventListener('input', function (ev) {
+        var el = ev.target;
+        var id = el && el.getAttribute && el.getAttribute('data-note');
+        if (id) state.notes[id] = el.value;
+      });
+
+      document.addEventListener('click', function (ev) {
+        var target = ev.target;
+        if (!target || !target.closest) return;
+
+        var opener = target.closest('[data-open]');
+        if (opener) {
+          var id = opener.getAttribute('data-open');
+          setOpen(openId === id ? null : id);
+          render();
+          return;
+        }
+
+        var saveBtn = target.closest('[data-save]');
+        if (saveBtn) {
+          save();
+          toast('Saved locally');
+          return;
+        }
+
+        var delBtn = target.closest('[data-del]');
+        if (delBtn) {
+          var parts = delBtn.getAttribute('data-del').split(':');
+          var photoId = parts[0];
+          var photoIndex = Number(parts[1]);
+          if (state.photos[photoId]) { state.photos[photoId].splice(photoIndex, 1); }
+          render();
+          save();
+          return;
+        }
+
+        var viewer = target.closest('[data-view]');
+        if (viewer) {
+          var q = viewer.getAttribute('data-view').split(':');
+          var photoKey = q[0];
+          var photoIndex = Number(q[1]);
+          var imgUrl = state.photos[photoKey] && state.photos[photoKey][photoIndex];
+          if (!imgUrl) return;
+
+          var lightbox = document.createElement('div');
+          lightbox.className = 'lightbox';
+          var img = document.createElement('img');
+          img.src = imgUrl;
+          lightbox.appendChild(img);
+          lightbox.addEventListener('click', function () { lightbox.remove(); });
+          document.body.appendChild(lightbox);
+        }
+      });
+
+      document.addEventListener('change', function (ev) {
+        var el = ev.target;
+        var id = el && el.getAttribute && el.getAttribute('data-photo');
+        if (!id || !el.files || !el.files.length) return;
+
+        var files = Array.prototype.slice.call(el.files);
+        var current = (state.photos[id] || []).length;
+        if (current + files.length > 6) {
+          toast('Up to 6 photos per store.');
+          return;
+        }
+
+        toast('Adding photos...');
+        Promise.all(files.map(shrink)).then(function (list) {
+          state.photos[id] = (state.photos[id] || []).concat(list);
+          if (JSON.stringify(state).length > 12000000) {
+            state.photos[id] = state.photos[id].slice(0, current);
+            render();
+            toast('The page is full. Remove some photos first.');
+            return;
+          }
+          render();
+          save();
+        }).catch(function () {
+          toast('Could not read that photo.');
+        });
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
